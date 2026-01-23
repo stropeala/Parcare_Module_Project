@@ -13,7 +13,7 @@
     "Prenume": "Wood",
     "Nr.Telefon": "(475) 651-6147",
     "Oras": "Bridgeport, CT",
-    "Pariah": false
+    "Pariah": true
   },
   {
     "ID": 3,
@@ -21,7 +21,7 @@
     "Prenume": "Koch",
     "Nr.Telefon": "(681) 518-7418",
     "Oras": "Charleston, WV",
-    "Pariah": false
+    "Pariah": true
   },
   {
     "ID": 4,
@@ -77,6 +77,6 @@
     "Prenume": "Acosta",
     "Nr.Telefon": "(724) 410-6441",
     "Oras": "Mccandless, PA",
-    "Pariah": false
+    "Pariah": true
   }
 ]
