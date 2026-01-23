@@ -1,7 +1,7 @@
 import json
 import os
 
-from db import db_end, db_start
+from db import db
 
 
 # We create a func that adds a new client to a json file without deleteing the old ones
@@ -34,5 +34,4 @@ def clients(filepath, nume, prenume, telefon, oras, pariah=False):
         # indent=4 for better farmat
         json.dump(all_clients, file, indent=4)
 
-    db_start(filepath, id)
-    db_end(filepath, id)
+    db(filepath, id)
