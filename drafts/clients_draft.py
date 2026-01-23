@@ -1,5 +1,7 @@
 import json
 import os
+import pathlib
+import re
 
 from db_draft import db_draft
 
@@ -31,8 +33,23 @@ def clients_draft(filepath, nume, prenume, telefon, oras, pariah=False):
 
     # We open the json in write mode and convert the all_clients list to a json
     with open(filepath, "w") as file:
-        # indent=4 for better farmat
+        # indent=4 for better format
         json.dump(all_clients, file, indent=4)
 
-    # db_start_draft(filepath, id)
     db_draft(filepath, id)
+
+    db_filepath2 = f"{pathlib.Path(filepath).parent.resolve()}/client_timers_draft/client_timers_draft.json"
+    with open(db_filepath2, "r") as file:
+        client_db2 = json.load(file)
+
+    ids = list(range(len(all_clients)))
+    for i in ids:
+        timp_str = client_db2[i]["Date & Hour"]["Timp"]
+        match = re.findall(r"\d", timp_str)
+        timp_int = int(match[0])
+        if 7 <= timp_int:
+            all_clients[i].update({"Pariah": True})
+
+    with open(filepath, "w") as file:
+        # indent=4 for better format
+        json.dump(all_clients, file, indent=4)
