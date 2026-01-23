@@ -1,3 +1,5 @@
+import random
+
 # list = [
 #     {"ID": 1, "Date & Hour": {"Intrare in parcare": "2026-01-22 21:59:38.491450"}},
 #     {"ID": 2, "Date & Hour": {"Intrare in parcare": "2026-01-22 21:59:38.491671"}},
@@ -10,5 +12,5 @@
 # print(string[88])
 # print(string[168])
 
-a = list(range(0, 100))
+a = random.choice(list(range(0, 100)))
 print(a)
