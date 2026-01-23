@@ -30,71 +30,71 @@ In drafts sunt toate ciornele mele, nothing important
 if __name__ == "__main__":
     clients(
         "data/clients.json",
-        "Frank",
-        "Fleming",
-        "(810) 011-4394",
-        "Port Huron, MI",
+        "Lynn",
+        "Newton",
+        "(206) 342-8631",
+        "Seattle, WA",
     )
     clients(
         "data/clients.json",
-        "Keith",
-        "Wood",
-        "(475) 651-6147",
-        "Bridgeport, CT",
+        "Genaro",
+        "Willis",
+        "(717) 550-1675",
+        "Harrisburg, PA",
     )
     clients(
         "data/clients.json",
-        "Marty",
-        "Koch",
-        "(681) 518-7418",
-        "Charleston, WV",
+        "Rosanne",
+        "Maldonado",
+        "(248) 762-0356",
+        "Farmington Hills, MIV",
     )
     clients(
         "data/clients.json",
-        "Billie",
-        "Forbes",
-        "(570) 542-1228",
-        "Scranton, PA",
+        "Pauline",
+        "Figueroa",
+        "(253) 644-2182",
+        "Auburn, WA",
     )
     clients(
         "data/clients.json",
-        "Deloris",
-        "White",
-        "(386) 167-3182",
-        "Palm Coast, FL",
+        "Rickey",
+        "Clements",
+        "(212) 658-3916",
+        "New York City, NY",
     )
     clients(
         "data/clients.json",
-        "Sherwood",
-        "Holder",
-        "(574) 347-8989",
-        "Elkhart, IN",
+        "Jeanne",
+        "Wolf",
+        "(209) 300-2557",
+        "Ceres, CA",
     )
     clients(
         "data/clients.json",
-        "Tobias",
-        "Snyder",
-        "(502) 947-8597",
-        "Louisville, KY",
+        "Dustin",
+        "Carrillo",
+        "(262) 162-1585",
+        "Menomonee Falls, WI",
     )
     clients(
         "data/clients.json",
-        "Mattie",
-        "Garcia",
-        "(270) 921-6744",
-        "Henderson, KY",
+        "Sally",
+        "Reeves",
+        "(252) 258-3799",
+        "Greenville, NC",
     )
     clients(
         "data/clients.json",
-        "Hugh",
-        "Maxwell",
-        "(530) 532-3263",
-        "Davis, CA",
+        "Jaclyn",
+        "Andersen",
+        "(234) 109-6666",
+        "Akron, OH",
     )
     clients(
         "data/clients.json",
-        "Diana",
-        "Acosta",
-        "(724) 410-6441",
-        "Mccandless, PA",
+        "Esteban",
+        "Shelton",
+        "(201) 874-8593",
+        "Bayonne, NJ",
     )
