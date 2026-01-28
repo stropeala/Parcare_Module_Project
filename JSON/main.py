@@ -29,70 +29,70 @@ In drafts sunt toate ciornele mele, nothing important
 
 if __name__ == "__main__":
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Lynn",
         "Newton",
         "(206) 342-8631",
         "Seattle, WA",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Genaro",
         "Willis",
         "(717) 550-1675",
         "Harrisburg, PA",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Rosanne",
         "Maldonado",
         "(248) 762-0356",
         "Farmington Hills, MIV",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Pauline",
         "Figueroa",
         "(253) 644-2182",
         "Auburn, WA",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Rickey",
         "Clements",
         "(212) 658-3916",
         "New York City, NY",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Jeanne",
         "Wolf",
         "(209) 300-2557",
         "Ceres, CA",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Dustin",
         "Carrillo",
         "(262) 162-1585",
         "Menomonee Falls, WI",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Sally",
         "Reeves",
         "(252) 258-3799",
         "Greenville, NC",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Jaclyn",
         "Andersen",
         "(234) 109-6666",
         "Akron, OH",
     )
     clients(
-        "data/clients.json",
+        "JSON/data/clients.json",
         "Esteban",
         "Shelton",
         "(201) 874-8593",
