@@ -5,18 +5,18 @@ then we calculate the park time
 then we update pariah
 then we read the different kinds of clients
     pariah = true
-    <2 hr
-    >2 hr
-    >3 days
+    <2 hr new table
+    >2 hr new table
+    >3 days new table
 """
 
 from db import db
 from helpers import read_and_write_extra_tables
 
-PARKING_DB_PATH = "SQLite/data/park.db"
-CLIENTS_TABLE = "clients"
+PARKING_DB_PATH = "SQLite/data/parkinglot.db"
 
 if __name__ == "__main__":
+    # We add a client with each db() func call
     db(PARKING_DB_PATH, "Lynn", "Newton", "(717) 550-1675", "Seattle, WA")
     db(PARKING_DB_PATH, "Genaro", "Willis", "(206) 342-8631", "Harrisburg, PA")
     db(PARKING_DB_PATH, "Rosanne", "Maldonado", "(248) 762-0356", "Farmington, MIV")
@@ -27,4 +27,5 @@ if __name__ == "__main__":
     db(PARKING_DB_PATH, "Sally", "Reeves", "(252) 258-379", "Greenville, NC")
     db(PARKING_DB_PATH, "Jaclyn", "Andersen", "(234) 109-6666", "Akron, OH")
     db(PARKING_DB_PATH, "Esteban", "Shelton", "(201) 874-8593", "Bayonne, NJ")
+    # After that we can make extra tables with different parking times
     read_and_write_extra_tables(PARKING_DB_PATH)

@@ -31,20 +31,21 @@ def create_db(db_path: str) -> None:
     # Execute the table creation query
     cursor.execute(sql)
 
-    # Close the connections to the database
+    # Close the connections to the database after commiting the change
+    conn.commit()
     cursor.close()
     conn.close()
-
-    print("Table created!\nContinuing...")
+    print("Clients table created\nAdding client...")
 
 
 def get_conn(db_path: str) -> sqlite3.Connection:
     # We get connection to db only if db_path is valid
+    # Then we return the connection so we can use it in other funcs
     if path.isfile(db_path):
-        con = sqlite3.connect(db_path)
+        conn = sqlite3.connect(db_path)
     else:
         print("Couldn't connect to database!")
-    return con  # pyright: ignore
+    return conn  # pyright: ignore
 
 
 def write_client(
@@ -58,6 +59,8 @@ def write_client(
     conn = get_conn(db_path)
     if conn:
         cursor = conn.cursor()
+
+        # We make a query for writing a client into the table
         sql = f"""
             INSERT INTO Clients
             ('First_Name', 'Last_Name', 'Phone_Nr','City_of_residence',
@@ -66,7 +69,7 @@ def write_client(
             ('{firstname}', '{lastname}', '{phone}', '{city}',
             '{entry}', 'None', 'None', 'False')
         """
-        print(sql)
+
         cursor.execute(sql)
         conn.commit()
         cursor.close()
@@ -75,7 +78,9 @@ def write_client(
         print("Couldn't connect to database!")
 
 
-def timer(hours: int):
+def timer(hours: int) -> str:
+    # Here we make a simple timer func
+    # that counts every second until 0
     if 1 <= hours <= 3:
         t = hours
         while t:
@@ -109,15 +114,19 @@ def timer(hours: int):
         return exit
 
 
-def update_hrs_parked(db_path: str, exit, hours: int) -> None:
+def update_hours_parked(db_path: str, exit: str, hours: int) -> None:
     conn = get_conn(db_path)
     if conn:
         cursor = conn.cursor()
+
+        # Here we update the time with the exit from the previous timer() func
         sql1 = f"UPDATE Clients SET DateTime_exit='{exit}' WHERE DateTime_exit='None'"
         cursor.execute(sql1)
-        conn.commit()
+
+        # Here we update the hours with the var from the main db() func
         sql2 = f"UPDATE Clients SET Hours_Parked='{hours}' WHERE Hours_Parked='None'"
         cursor.execute(sql2)
+
         conn.commit()
         cursor.close()
         conn.close()
@@ -129,8 +138,12 @@ def update_pariah(db_path: str) -> None:
     conn = get_conn(db_path)
     if conn:
         cursor = conn.cursor()
+
+        # Here we chage the Pariah from False to True for clients
+        # who stayed more than 7 seconds (3 days)
         sql = "UPDATE Clients SET Pariah='True' WHERE Hours_Parked >= 7"
         cursor.execute(sql)
+
         conn.commit()
         cursor.close()
         conn.close()
@@ -143,6 +156,8 @@ def create_extra_table(db_path: str) -> None:
     if conn:
         cursor = conn.cursor()
 
+        # Here we create a new tables in the DB using the data from the Clients table
+        # 1st with clients who stayed under 3 seconds (<2 hours)
         sql1 = """
             CREATE TABLE Under_2Hours AS
             SELECT *
@@ -151,6 +166,7 @@ def create_extra_table(db_path: str) -> None:
         """
         cursor.execute(sql1)
 
+        # 2nd with clients who stayed between 3 and 7 seconds (>2 hours)
         sql2 = """
             CREATE TABLE Over_2Hours AS
             SELECT *
@@ -159,7 +175,7 @@ def create_extra_table(db_path: str) -> None:
         """
         cursor.execute(sql2)
 
-        cursor.execute("DROP TABLE IF EXISTS Over_3Days")
+        # 3rd with clients who stayed more than 7 seconds (>3 days)
         sql3 = """
             CREATE TABLE Over_3Days AS
             SELECT *
@@ -168,6 +184,7 @@ def create_extra_table(db_path: str) -> None:
         """
         cursor.execute(sql3)
 
+        conn.commit()
         cursor.close()
         conn.close()
     else:
@@ -175,28 +192,25 @@ def create_extra_table(db_path: str) -> None:
 
 
 def read_and_write_extra_tables(db_path: str) -> list:
-    # Get a connection to the db
     conn = get_conn(db_path)
-
     if conn:
-        # Get a cursor object fro the connection
         cursor = conn.cursor()
 
-        # Build the SQL query
+        # Here we read the tables and make lists with the data we need using fetchall()
+        # 1st list we select the clients who stayed under 3 seconds
         sql1 = """
             SELECT ID
             FROM Clients
             GROUP BY ID
             HAVING min(Hours_Parked) <= 3;
         """
-        # Execute the prepared SQL query (sql)
         cursor.execute(sql1)
-        # Retrieve/Get/Fetch all entries/rows from the cursor
         id = findall(r"\d+", str(cursor.fetchall()))
         print(
-            f"IDs of clients who were parked for less than 2 hours: {id}\nExtra table created: Under_2Hours\n"
+            f"\nClient IDs parked under 2 hours: {id}\nExtra table created: Under_2Hours\n"
         )
 
+        # 2nd list we select the clients who stayed between 3 and 7 seconds (>2 hours)
         sql2 = """
             SELECT ID
             FROM Clients
@@ -206,9 +220,10 @@ def read_and_write_extra_tables(db_path: str) -> list:
         cursor.execute(sql2)
         id2 = findall(r"\d+", str(cursor.fetchall()))
         print(
-            f"IDs of clients who were parked for more than 2 hours: {id2}\nExtra table created: Over_2Hours\n"
+            f"\nClient IDs parked over 2 hours: {id2}\nExtra table created: Over_2Hours\n"
         )
 
+        # 3rd list we select the clients who stayed more than 7 seconds (>3 days)
         sql3 = """
             SELECT ID
             FROM Clients
@@ -217,14 +232,17 @@ def read_and_write_extra_tables(db_path: str) -> list:
         """
         cursor.execute(sql3)
         id3 = findall(r"\d+", str(cursor.fetchall()))
+        print(
+            f"\nClient IDs parked for 3 days: {id3}\nExtra table created: Over_3Days\n"
+        )
+
+        conn.commit()
         cursor.close()
         conn.close()
-        print(
-            f"IDs of clients who were parked for more than 3 days: {id3}\nExtra table created: Over_3Days\n"
-        )
-        create_extra_table(db_path)
 
+        # Here we call the previous create_extra_table() so we can
+        # with a single read_and_write_extra_tables() both read and write the new tables
+        create_extra_table(db_path)
     else:
         print("Couldn't connect to database!")
-
     return []
